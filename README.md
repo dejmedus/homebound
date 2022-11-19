@@ -8,6 +8,7 @@ Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's
 - [React Router](https://reactrouter.com/en/main)
 - [Userfront](https://userfront.com) Auth
 - [Tailwind CSS](https://tailwindcss.com)
+  - [Tailwind Elements Library](https://tailwind-elements.com)
 
 
 ### Uses

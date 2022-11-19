@@ -1,13 +1,13 @@
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 import Userfront from "@userfront/react";
 
-// import earth from './assets/images/tutti-earth.png'
-// import money from './assets/images/tutti-banknote.png'
-// import path from './assets/images/tutti-path.png'
 import earth from './assets/images/earth.png'
 import money from './assets/images/bank.png'
 import path from './assets/images/puzzle.png'
 
+import UpdateUser from './modules/UpdateUser'
+import Header from './modules/Header'
+import Footer from './modules/Footer'
 
 Userfront.init(process.env.REACT_APP_USERFRONT);
 
@@ -23,61 +23,6 @@ const PasswordResetForm = Userfront.build({
   toolId: process.env.REACT_APP_RESET
 });
 
-// const LogoutButton = Userfront.build({
-//   toolId: process.env.REACT_APP_LOGOUT
-// });
-
-const Header = () => {
-  return (
-    <nav className='py-2 px-12 bg-neutral-200 dark:bg-neutral-900 dark:text-white flex gap-1'>
-      <ul className="flex gap-1 w-screen justify-between">
-        {!Userfront.accessToken()
-          ?
-          <>
-            <div className="flex gap-2 items-center">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-            </div>
-            <div>
-              <li className="border bg-neutral-300 rounded hover:bg-neutral-100 py-1 px-4 text-neutral-800">
-                <Link to="/login">Login</Link>
-              </li>
-            </div>
-          </>
-
-          :
-          <>
-            <div className="flex gap-2 items-center">
-              <li>
-                <Link to="/dashboard">Homebound(dashboard)</Link>
-              </li>
-              <li>
-                <Link to="/trip-calculator">Plan a Trip</Link>
-              </li>
-            </div>
-            <div>
-              <li className='justify-self-end'>
-                <Account />
-              </li>
-            </div>
-          </>
-        }
-      </ul>
-    </nav>
-  )
-}
-const Footer = () => {
-  return (
-    <footer className='py-1 px-12 bg-neutral-200 dark:bg-neutral-900 dark:text-white flex justify-center gap-6'>
-      <a href="http://github.com/dejmedus/homebound">View Source Code</a>
-      <a href="https://mlh.io">Made for MLH Hackcoming 2 Hackathon</a>
-    </footer>
-  )
-}
 
 export default function App() {
 
@@ -88,10 +33,39 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/reset" element={<PasswordReset />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/" element={<Home />} />
+          {!Userfront.accessToken()
+            ? <Route path="/" element={<Home />} />
+            : <Route path="/" element={<Dashboard />} />}
+          {/* <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Home />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/trip-calculator" element={<TripCalc />} />
+          <Route
+            path="/update-user"
+            element={<UpdateUser />}
+            action={
+              async ({ request }) => {
+                let formData = await request.formData();
+                let username = formData.get("username");
+                let about = formData.get('about')
+                Userfront.user.update({
+                  username: username,
+                  data: {
+                    about: about,
+                  },
+                });
+
+                return (
+                  <Navigate
+                    to={{
+                      pathname: "/",
+                      state: { from: '/update-user' },
+                    }}
+                  />
+                );
+              }
+            }
+          />
         </Routes>
       </main>
       <Footer />
@@ -141,19 +115,16 @@ function TripCalc() {
   )
 }
 
-function Account() {
-  return (
-    <div className='flex gap-1 items-center'>
-      <button className='flex'>
-        <img src={Userfront.user.image} className='rounded-full w-7' alt="profile" />
-        <p>{Userfront.user.username}</p>
-      </button>
-      <button onClick={Userfront.logout}>
-        Logout
-      </button>
-    </div>
-  )
-}
+// const update = (img, username, trips) => {
+//   Userfront.user.update({
+//     username: username,
+//     image: img,
+//     data: {
+//       trips: trips,
+//     },
+//   });
+// }
+
 
 function Login() {
   return <div className='text-center'>
@@ -169,15 +140,8 @@ function PasswordReset() {
   </>
 }
 
-function UpdateUser() {
-  Userfront.user.update({
-    data: {
-      somethingCustom: true,
-    },
-  });
-}
 
-function Dashboard({ user, setUser }) {
+function Dashboard() {
   function Auth({ location }) {
 
     if (!Userfront.accessToken()) {
@@ -190,12 +154,16 @@ function Dashboard({ user, setUser }) {
         />
       );
     }
-
-    const user = JSON.stringify(Userfront.user, null, 2);
+    // const user = JSON.stringify(Userfront.user, null, 2);
     return (
-      <div>
-        <h2>Dashboard</h2>
-        <pre>{user}</pre>
+      <div className='grid gap-2'>
+        <h1 className='text-2xl pb-2'>Find a Ride</h1>
+        {(Userfront.accessToken() && (Userfront.user.username === 'null' || Userfront.user.username == ''))
+          ? <div className="bg-blue-100 rounded-lg py-5 px-4 mb-4 text-base text-blue-700 mb-3" role="alert">
+            🚙 <Link className="font-bold text-blue-800 underline hover:text-blue-600" to="/update-user">Update your account</Link> to offer or accept trips!
+          </div>
+          : <h2>ALL THE TRIPS HERE</h2>}
+        {/* <pre>{user}</pre> */}
       </div>
     );
   }
