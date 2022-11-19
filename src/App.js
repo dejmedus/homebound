@@ -30,32 +30,40 @@ const PasswordResetForm = Userfront.build({
 const Header = () => {
   return (
     <nav className='py-2 px-12 bg-neutral-200 dark:bg-neutral-900 dark:text-white flex gap-1'>
-      <ul className="flex gap-1 w-screen">
+      <ul className="flex gap-1 w-screen justify-between">
         {!Userfront.accessToken()
           ?
           <>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li className='justify-self-end'>
-              <Link to="/login">Login</Link>
-            </li>
+            <div className="flex gap-2 items-center">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+            </div>
+            <div>
+              <li className="border bg-neutral-300 rounded hover:bg-neutral-100 py-1 px-4 text-neutral-800">
+                <Link to="/login">Login</Link>
+              </li>
+            </div>
           </>
 
           :
           <>
-            <li>
-              <Link to="/dashboard">Homebound(dashboard)</Link>
-            </li>
-            <li>
-              <Link to="/trip-calculator">Plan a Trip</Link>
-            </li>
-            <li className='justify-self-end'>
-              <Account />
-            </li>
+            <div className="flex gap-2 items-center">
+              <li>
+                <Link to="/dashboard">Homebound(dashboard)</Link>
+              </li>
+              <li>
+                <Link to="/trip-calculator">Plan a Trip</Link>
+              </li>
+            </div>
+            <div>
+              <li className='justify-self-end'>
+                <Account />
+              </li>
+            </div>
           </>
         }
       </ul>
@@ -65,8 +73,8 @@ const Header = () => {
 const Footer = () => {
   return (
     <footer className='py-1 px-12 bg-neutral-200 dark:bg-neutral-900 dark:text-white flex justify-center gap-6'>
-    <a href="http://github.com/dejmedus/homebound">View Source Code</a>
-    <a href="https://mlh.io">Made for MLH Hackcoming 2 Hackathon</a>
+      <a href="http://github.com/dejmedus/homebound">View Source Code</a>
+      <a href="https://mlh.io">Made for MLH Hackcoming 2 Hackathon</a>
     </footer>
   )
 }
