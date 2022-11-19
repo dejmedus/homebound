@@ -1,15 +1,13 @@
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Outlet, Navigate, Link } from "react-router-dom";
 import Userfront from "@userfront/react";
 
 import earth from './assets/images/earth.png'
 import money from './assets/images/bank.png'
 import path from './assets/images/puzzle.png'
 
-import UpdateUser from './modules/UpdateUser'
 import Header from './modules/Header'
 import Footer from './modules/Footer'
 
-Userfront.init(process.env.REACT_APP_USERFRONT);
 
 const SignupForm = Userfront.build({
   toolId: process.env.REACT_APP_SIGNUP
@@ -30,43 +28,21 @@ export default function App() {
     <div className='min-h-screen flex flex-col'>
       <Header />
       <main className="bg-neutral-50 dark:bg-neutral-800 dark:text-white flex-1 py-12 px-20">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset" element={<PasswordReset />} />
+        {/* <Routes>
           {!Userfront.accessToken()
-            ? <Route path="/" element={<Home />} />
-            : <Route path="/" element={<Dashboard />} />}
-          {/* <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/" element={<Home />} /> */}
-          <Route path="/about" element={<About />} />
-          <Route path="/trip-calculator" element={<TripCalc />} />
-          <Route
-            path="/update-user"
-            element={<UpdateUser />}
-            action={
-              async ({ request }) => {
-                let formData = await request.formData();
-                let username = formData.get("username");
-                let about = formData.get('about')
-                Userfront.user.update({
-                  username: username,
-                  data: {
-                    about: about,
-                  },
-                });
-
-                return (
-                  <Navigate
-                    to={{
-                      pathname: "/",
-                      state: { from: '/update-user' },
-                    }}
-                  />
-                );
-              }
-            }
-          />
-        </Routes>
+            ? <>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+            </>
+            : <>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/trip-calculator" element={<TripCalc />} />
+              <Route path="/update-user" element={<UpdateUser />} action={updateUserAction} />
+            </>}
+          <Route path="/reset" element={<PasswordReset />} />
+        </Routes> */}
+        <Outlet/>
       </main>
       <Footer />
     </div>
