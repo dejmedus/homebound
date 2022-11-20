@@ -2,13 +2,13 @@ import { Form, Link, redirect } from "react-router-dom";
 import Userfront from "@userfront/react";
 
 const UpdateUser = () => {
-  console.log(Userfront.user.name)
+
   return (
     <div className="mt-5 flex justify-center dark:text-zinc-900">
       <Form method="post">
         <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-          <h3 className="block text-md font-medium text-zinc-900 underline bold" >Private</h3>
+            <h3 className="block text-md font-medium text-zinc-900 underline bold" >Private</h3>
 
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-2">

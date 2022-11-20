@@ -20,7 +20,7 @@ Userfront.init(process.env.REACT_APP_USERFRONT);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />} errorElement={<Error />}>
+    <Route element={<App />} errorElement={<Error />}>
       {!Userfront.accessToken()
         ? <>
           <Route path="/" element={<Home />} />

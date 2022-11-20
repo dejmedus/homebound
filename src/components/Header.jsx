@@ -6,7 +6,6 @@ const Header = () => {
         textDecoration: "underline",
     };
 
-
     return (
         <nav className='py-2 px-4 md:px-12 bg-zinc-200 dark:bg-zinc-900 dark:text-white flex gap-1'>
             <ul className="flex gap-1 w-screen justify-between">

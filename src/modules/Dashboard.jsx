@@ -25,7 +25,6 @@ const Dashboard = ({ location }) => {
             />
         );
     }
-    // const user = JSON.stringify(Userfront.user, null, 2);
     fillData(userData)
 
     const handleDriver = () => setRole('driver')
@@ -222,9 +221,6 @@ export async function action({ request }) {
     let destination = formData.get('destination');
     let passengerNum = formData.get('passengerNum');
     let seatCost = formData.get('seatCost');
-
-    // https://api.tomtom.com/search/2/search/36.98844,-121.97483.json?key={Your_API_Key}
-    // https://api.tomtom.com/search/2/autocomplete/pizza.json?key={Your_API_Key}&language=en-US
 
     let trip = {
         role: 'driver',
