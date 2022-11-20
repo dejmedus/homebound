@@ -62,7 +62,7 @@ const Header = () => {
                             <li>
                                 <NavLink
                                     className='hover:opacity-60'
-                                    to="/trip-calculator"
+                                    to="/your-trips"
                                     style={({ isActive }) =>
                                         isActive ? activeStyle : undefined
                                     }>Your Trips</NavLink>

@@ -2,8 +2,9 @@ import { Form, Link, redirect } from "react-router-dom";
 import Userfront from "@userfront/react";
 
 const UpdateUser = () => {
+  console.log(Userfront.user.name)
   return (
-    <div className="mt-5 md:col-span-2 md:mt-0">
+    <div className="mt-5 flex justify-center dark:text-zinc-900">
       <Form method="post">
         <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -20,7 +21,7 @@ const UpdateUser = () => {
                     name="name"
                     id="name"
                     defaultValue={Userfront.user.name}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                    className="block w-full flex-1  rounded border-zinc-300 sm:text-sm"
                   />
                 </div>
               </div>
@@ -38,7 +39,7 @@ const UpdateUser = () => {
                     name="username"
                     id="username"
                     defaultValue={Userfront.user.username}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                    className="block w-full flex-1 rounded border-zinc-300 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
                   />
                 </div>
               </div>
@@ -56,7 +57,7 @@ const UpdateUser = () => {
                   id="about"
                   name="about"
                   rows={3}
-                  className="mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-zinc-300 shadow-sm max-w-4xl focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
                   defaultValue={Userfront.user.data['about']}
                 />
               </div>

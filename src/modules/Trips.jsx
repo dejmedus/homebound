@@ -1,5 +1,6 @@
 import Userfront from "@userfront/react";
 import { useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
   "August", "September", "October", "November", "December"];
@@ -16,13 +17,14 @@ const suffix = (d) => {
 }
 
 const Trips = () => {
-  const [trips, setTrips] = useState(Userfront.user.data['trips'])
+  const { tripsData } = useLoaderData();
+  const [trips, setTrips] = useState(tripsData)
   const handleSetTrips = (arr) => setTrips(arr)
 
   return (
     <>
       <div className='text-2xl pb-6'>Trips</div>
-      {trips
+      {trips && trips.length > 0
         ? trips.sort((trip) => trip.startDate).map(trip => {
           let wordDateStart = `${months[+trip.startDate.slice(0, 2)]} ${+trip.startDate.slice(4, 5) + 1}${suffix(+trip.startDate.slice(4, 5) + 1)}, ${trip.startDate.slice(6)}`;
           let wordDateEnd = '';
@@ -51,7 +53,9 @@ const Trips = () => {
           </div>
         }
         )
-        : null
+        : <>
+        <Link to='/'><p className='text-xl py-12 text-center font-medium hover:underline'>Nothing planned? Lets change that.</p></Link>
+        </>
       }
     </>
   )
@@ -62,7 +66,6 @@ function CancelTrip(val, trips, handleSetTrips) {
 
   const date = val[0]
   const destination = val[1]
-  console.log('canceltrip')
 
   let newArr = trips.filter(trip => {
     return trip.startDate !== date && trip.destination !== destination
@@ -76,6 +79,11 @@ function CancelTrip(val, trips, handleSetTrips) {
   });
   handleSetTrips(newArr)
   return
+}
+
+export async function loader() {
+  const tripsData = await Userfront.user.data['trips']
+  return { tripsData };
 }
 
 export default Trips

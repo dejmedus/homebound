@@ -9,10 +9,10 @@ import Userfront from "@userfront/react";
 
 import Home from './modules/Home';
 import Login from './modules/Login';
-import Dashboard, { action as tripPlannerAction } from './modules/Dashboard';
+import Dashboard, { action as tripPlannerAction, loader as tripPlannerLoader } from './modules/Dashboard';
 import About from './modules/About';
 import PasswordReset from './modules/PasswordReset';
-import Trips from './modules/Trips';
+import Trips, { loader as tripsLoader } from './modules/Trips';
 import Error from './components/Error'
 import UpdateUser, { action as updateUserAction } from './modules/UpdateUser'
 
@@ -28,9 +28,9 @@ const router = createBrowserRouter(
           <Route path="/reset" element={<PasswordReset />} />
         </>
         : <>
-          <Route path="/" element={<Dashboard />} action={tripPlannerAction} />
+          <Route path="/" element={<Dashboard />} action={tripPlannerAction} loader={tripPlannerLoader}/>
           <Route path="/about" element={<About />} />
-          <Route path="/your-trips" element={<Trips />} />
+          <Route path="/your-trips" loader={tripsLoader} element={<Trips />} />
           <Route path="/update-user" element={<UpdateUser />} action={updateUserAction} />
           <Route path="/reset" element={<PasswordReset />} />
         </>}
@@ -40,9 +40,9 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <RouterProvider router={router} />
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

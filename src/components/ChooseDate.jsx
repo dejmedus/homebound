@@ -16,13 +16,13 @@ const ChooseDate = () => {
         <input className='rounded dark:text-zinc-900' id='roundtrip' value={roundtrip} type="checkbox" name="roundtrip" onChange={() => setRoundtrip(!roundtrip)} />
       </div>
       <div className='flex gap-9 items-center'>
-        <label className='w-32 dark:text-zinc-50' htmlFor="startDate">Leave: </label>
+        <label className='w-24 dark:text-zinc-50' htmlFor="startDate">Leave: </label>
         <DatePicker id='startDate' name='startDate' value={startDate} className='rounded w-28 dark:text-zinc-900' selected={startDate} onChange={(date) => date >= curDate ? setStartDate(date) : null}/>
       </div>
       {roundtrip === true
         ?
         <div className='flex gap-9 items-center'>
-          <label className='w-32 dark:text-zinc-50' htmlFor="endDate">Return: </label>
+          <label className='w-24 dark:text-zinc-50' htmlFor="endDate">Return: </label>
           <DatePicker id='endDate' name='endDate' value={endDate} className='rounded w-28 dark:text-zinc-900' selected={endDate} onChange={(date) => date > startDate && date >= curDate ? setEndDate(date) : null} />
         </div>
         : null

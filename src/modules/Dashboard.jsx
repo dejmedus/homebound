@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import Userfront from "@userfront/react";
-import { Link, Navigate, Form, redirect } from 'react-router-dom'
+import { Link, Navigate, Form, redirect, useLoaderData } from 'react-router-dom'
 
 import ChooseDate from '../components/ChooseDate'
+import tt from '@tomtom-international/web-sdk-services';
+
 
 const Dashboard = ({ location }) => {
 
     const [role, setRole] = useState(null);
+    const [address, setAddress] = useState('');
+    const [destination, setDestination] = useState('');
+    const [addressCoord, setAddressCoord] = useState([])
+    const [destinationCoord, setDestinationCoord] = useState([])
+    const { userData } = useLoaderData();
 
     if (!Userfront.accessToken()) {
         return (
@@ -19,16 +26,66 @@ const Dashboard = ({ location }) => {
         );
     }
     // const user = JSON.stringify(Userfront.user, null, 2);
-    fillData()
+    fillData(userData)
 
     const handleDriver = () => setRole('driver')
     const handleRider = () => setRole('rider')
     const roleNull = () => setRole(null)
 
+    function callbackAddress(result) {
+        if (result.results[0].position.lat !== '' && result.results[0].position.lng !== '') {
+            setAddressCoord([result.results[0].position.lat, result.results[0].position.lng])
+            console.log(addressCoord)
+        }
+    };
+
+    function callbackDestination(result) {
+        // console.log(result);
+        // console.log(result.results[0]);
+        // console.log(result.results[0].address.country);
+        console.log(result.results[0].position.lng);
+        console.log(result.results[0].position.lat);
+        if (result.results[0].position.lat !== '' && result.results[0].position.lng !== '') {
+            setDestinationCoord([result.results[0].position.lat, result.results[0].position.lng])
+        }
+    };
+
+    const handleAddress = (e) => {
+        setTimeout(() => {
+            tt.services.fuzzySearch({
+                key: process.env.REACT_APP_TOMTOM,
+                query: e.target.value
+            }).then(callbackAddress);
+        }, 3000)
+        setAddress(e.target.value)
+    }
+    const handleDestination = (e) => {
+        setTimeout(() => {
+            tt.services.fuzzySearch({
+                key: process.env.REACT_APP_TOMTOM,
+                query: e.target.value
+            }).then(callbackDestination);
+        }, 3000)
+        setDestination(e.target.value)
+        if (destinationCoord !== [] && destinationCoord !== []) {
+            console.log('calculating distance');
+            calculateDistance()
+        }
+    }
+    function calculateDistance() {
+        const coordString = `${addressCoord[0]},${addressCoord[1]}:${destinationCoord[0]},${destinationCoord[1]}`
+        tt.services.calculateRoute({
+            key: process.env.REACT_APP_TOMTOM,
+            locations: coordString
+        }).then(function (routeData) {
+            console.log(routeData.toGeoJson());
+        });
+    }
+
     return (
         <div className='grid gap-2 pb-8'>
-            <h2 className='text-2xl pb-2'>Welcome {Userfront.user.name ? Userfront.user.name : ''}</h2>
-            {(Userfront.accessToken() && (Userfront.user.username === 'null' || Userfront.user.username == '' || Userfront.user.name == '' || Userfront.user.name == null))
+            {/* <h2 className='text-2xl pb-2'>Welcome {Userfront.user.name ? Userfront.user.name : ''}</h2> */}
+            {(Userfront.accessToken() && (Userfront.user.username === 'null' || Userfront.user.username === '' || Userfront.user.name === '' || Userfront.user.name == null))
                 ? <div className="bg-sky-100 rounded-lg py-5 px-4 mb-4 text-base text-sky-700 mb-3" role="alert">
                     🚙 <Link className="font-bold text-sky-800 underline hover:text-sky-600" to="/update-user">Update your account</Link> to offer or accept trips!
                 </div>
@@ -46,11 +103,21 @@ const Dashboard = ({ location }) => {
                                         <ChooseDate />
                                         <div className='flex gap-4 items-center pt-2'>
                                             <label className='w-24 dark:text-zinc-50' htmlFor="startLocation">Starting Location: </label>
-                                            <input className='w-28 rounded dark:text-zinc-900' type="text" name="startLocation" id="startLocation" />
+                                            <input className='w-48 rounded dark:text-zinc-900 capitalize' type="text" name="startLocation" id="startLocation"
+                                                value={address} onChange={handleAddress}
+                                            />
+                                            <input className='w-48 rounded dark:text-zinc-900 capitalize' type="text" name="startLocation" id="startLocation"
+                                                value={addressCoord}
+                                            />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
                                             <label className='w-24 dark:text-zinc-50' htmlFor="destination">Destination: </label>
-                                            <input className='w-28 rounded dark:text-zinc-900' type="text" name="destination" id="destination" />
+                                            <input className='w-48 rounded dark:text-zinc-900 capitalize' type="text" name="destination" id="destination"
+                                                value={destination} onChange={handleDestination}
+                                            />
+                                            <input className='w-48 rounded dark:text-zinc-900 capitalize' type="text" name="startLocation" id="startLocation"
+                                                value={destinationCoord}
+                                            />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
                                             <label className='w-24 dark:text-zinc-50' htmlFor="passengerNum">Number of Riders: </label>
@@ -110,9 +177,9 @@ function Card({ title, desc, onclick }) {
     )
 }
 
-function fillData() {
-    if (!Userfront.user.data['about'] || !Userfront.user.data['trips']) {
-        if (!Userfront.user.data['about'] && !Userfront.user.data['trips']) {
+function fillData(userData) {
+    if (!userData.data['about'] || !userData.data['trips']) {
+        if (!userData.data['about'] && !userData.data['trips']) {
             Userfront.user.update({
                 data: {
                     about: '',
@@ -120,18 +187,18 @@ function fillData() {
                 },
             });
         }
-        else if (!Userfront.user.data['about']) {
+        else if (!userData.data['about']) {
             Userfront.user.update({
                 data: {
                     about: '',
-                    trips: Userfront.user.data['trips']
+                    trips: userData.data['trips']
                 },
             });
         }
-        else if (!Userfront.user.data['trips']) {
+        else if (!userData.data['trips']) {
             Userfront.user.update({
                 data: {
-                    about: Userfront.user.data['about'],
+                    about: userData.data['about'],
                     trips: []
                 },
             });
@@ -140,6 +207,11 @@ function fillData() {
 }
 
 export default Dashboard
+
+export async function loader() {
+    const userData = await Userfront.user
+    return { userData };
+}
 
 export async function action({ request }) {
     let formData = await request.formData();
@@ -150,6 +222,9 @@ export async function action({ request }) {
     let destination = formData.get('destination');
     let passengerNum = formData.get('passengerNum');
     let seatCost = formData.get('seatCost');
+
+    // https://api.tomtom.com/search/2/search/36.98844,-121.97483.json?key={Your_API_Key}
+    // https://api.tomtom.com/search/2/autocomplete/pizza.json?key={Your_API_Key}&language=en-US
 
     let trip = {
         role: 'driver',
