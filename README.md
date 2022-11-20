@@ -8,10 +8,9 @@ Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's
 - [React Router](https://reactrouter.com/en/main)
 - [Userfront](https://userfront.com) Auth
 - [Tailwind CSS](https://tailwindcss.com)
-  - [Tailwind Elements Library](https://tailwind-elements.com)
-
 
 ### Uses
+- [React Datepicker](https://reactdatepicker.com/#example-date-range)
 - [TomTom API](https://developer.tomtom.com) for routing and gas prices
 - [Twilio Conversations API](https://www.twilio.com/docs/conversations) for messaging
 - Illustrations by [Icons 8 from Ouch!](https://icons8.com/illustrations)
