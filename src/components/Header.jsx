@@ -8,7 +8,7 @@ const Header = () => {
 
 
     return (
-        <nav className='py-2 px-4 md:px-12 bg-stone-200 dark:bg-stone-900 dark:text-white flex gap-1'>
+        <nav className='py-2 px-4 md:px-12 bg-zinc-200 dark:bg-zinc-900 dark:text-white flex gap-1'>
             <ul className="flex gap-1 w-screen justify-between">
                 {!Userfront.accessToken()
                     ?
@@ -36,7 +36,7 @@ const Header = () => {
                             </li>
                         </div>
                         <div>
-                            <li className="border bg-stone-300 rounded hover:bg-stone-100 py-1 px-4 text-stone-800">
+                            <li className="border bg-zinc-300 rounded hover:bg-zinc-100 py-1 px-4 text-zinc-800">
                                 <NavLink
                                     className='hover:underline'
                                     to="/login"
@@ -72,7 +72,7 @@ const Header = () => {
                             <li className='justify-self-end'>
                                 <div className='flex gap-4 items-center'>
                                     <NavLink
-                                        className='flex gap-2 items-center bg-stone-100 rounded-full hover:bg-stone-300 py-1 px-1 md:px-2 text-stone-800'
+                                        className='flex gap-2 items-center dark:hover:bg-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 bg-zinc-100 rounded-full hover:bg-zinc-300 py-1 px-1 md:px-2 text-zinc-800'
                                         to="/update-user"
                                     >
                                         <img src={Userfront.user.image} className='rounded-full w-7' alt="profile" />

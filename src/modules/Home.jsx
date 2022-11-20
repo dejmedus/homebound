@@ -16,11 +16,11 @@ const Home = () => {
     return (
         <>
             <div className='flex gap-2'>
-                <div className='flex-1 p-6 px-16 flex flex-col gap-2 text-black dark:text-white'>
+                <div className='flex-1 p-6 px-16 flex flex-col gap-2 text-zinc-900 dark:text-white'>
                     <h1 className='pb-2 text-5xl'>Homebound</h1>
-                    <h3 className="text-2xl text-black/[.8] dark:text-white/[.8]">Find or offer a ride and get to the places <i>and people</i> that matter this holiday season.</h3>
-                    <p className="text-lg text-black/50 dark:text-white/50">Homebound is a rideshare service that connects travellers with passengers who'd like to tag along and share trip costs.</p>
-                    <p className="text-lg text-black/50 dark:text-white/50">Help bring an age old rule into the modern era: catch a ride and offer gas money.</p>
+                    <h3 className="text-2xl text-zinc-900/[.8] dark:text-white/[.8]">Find or offer a ride and get to the places <i>and people</i> that matter this holiday season.</h3>
+                    <p className="text-lg text-zinc-900/50 dark:text-white/50">Homebound is a rideshare service that connects travellers with passengers who'd like to tag along and share trip costs.</p>
+                    <p className="text-lg text-zinc-900/50 dark:text-white/50">Help bring an age old rule into the modern era: catch a ride and offer gas money.</p>
                 </div>
                 <SignupForm />
             </div>

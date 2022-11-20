@@ -43,26 +43,26 @@ const Dashboard = ({ location }) => {
                             ? <>
                                 <div className='flex justify-center'>
                                     <Form method='post'>
-                                        <ChooseDate/>
+                                        <ChooseDate />
                                         <div className='flex gap-4 items-center pt-2'>
-                                            <label className='w-24' htmlFor="startLocation">Starting Location: </label>
-                                            <input className='w-28 rounded' type="text" name="startLocation" id="startLocation" />
+                                            <label className='w-24 dark:text-zinc-50' htmlFor="startLocation">Starting Location: </label>
+                                            <input className='w-28 rounded dark:text-zinc-900' type="text" name="startLocation" id="startLocation" />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
-                                            <label className='w-24' htmlFor="destination">Destination: </label>
-                                            <input className='w-28 rounded' type="text" name="destination" id="destination" />
+                                            <label className='w-24 dark:text-zinc-50' htmlFor="destination">Destination: </label>
+                                            <input className='w-28 rounded dark:text-zinc-900' type="text" name="destination" id="destination" />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
-                                            <label className='w-24' htmlFor="passengerNum">Number of Riders: </label>
-                                            <input className='w-28 rounded' max='12' min='1' defaultValue='1' type="number" name="passengerNum" id="passengerNum" />
+                                            <label className='w-24 dark:text-zinc-50' htmlFor="passengerNum">Number of Riders: </label>
+                                            <input className='w-28 rounded dark:text-zinc-900' max='12' min='1' defaultValue='1' type="number" name="passengerNum" id="passengerNum" />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
-                                            <label className='w-24' htmlFor="seatCost">Cost per Rider: </label>
-                                            <input className='w-28 rounded' type="number" name="seatCost" id="seatCost" />
+                                            <label className='w-24 dark:text-zinc-50' htmlFor="seatCost">Cost per Rider: </label>
+                                            <input className='w-28 rounded dark:text-zinc-900' type="number" min='0' name="seatCost" id="seatCost" />
                                         </div>
                                         <div className='flex gap-4 items-center pt-2'>
-                                            <label className='w-24' htmlFor="vehicleType">Type of Vechicle: </label>
-                                            <select className='rounded' name="vehicleType" id="vehicleType">
+                                            <label className='w-24 dark:text-zinc-50' htmlFor="vehicleType">Type of Vechicle: </label>
+                                            <select className='rounded dark:text-zinc-900' name="vehicleType" id="vehicleType">
                                                 <option value="four-door">4 Door Car</option>
                                                 <option value="two-door">2 Door Car</option>
                                                 <option value="truck">Truck</option>
@@ -101,9 +101,9 @@ const Dashboard = ({ location }) => {
 }
 function Card({ title, desc, onclick }) {
     return (
-        <button onClick={onclick} className="py-8 rounded-lg shadow-md bg-white dark:bg-black grid justify-center flex-1 hover:shadow-lg">
-            <h5 className="text-stone-900 text-xl leading-tight font-medium mb-2">{title}</h5>
-            <p className="text-stone-700 text-base">
+        <button onClick={onclick} className="py-8 rounded-lg shadow-md bg-white dark:bg-zinc-900 grid justify-center flex-1 hover:shadow-lg">
+            <h5 className="text-zinc-900 dark:text-zinc-100 text-xl leading-tight font-medium mb-2">{title}</h5>
+            <p className="text-zinc-700 dark:text-zinc-400 text-base">
                 {desc}
             </p>
         </button>

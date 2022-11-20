@@ -8,7 +8,6 @@ const PasswordReset = () => {
 
     return (
         <>
-            <h2>Password Reset</h2>
             <PasswordResetForm />
         </>
     )

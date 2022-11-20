@@ -32,6 +32,7 @@ const router = createBrowserRouter(
           <Route path="/about" element={<About />} />
           <Route path="/your-trips" element={<Trips />} />
           <Route path="/update-user" element={<UpdateUser />} action={updateUserAction} />
+          <Route path="/reset" element={<PasswordReset />} />
         </>}
     </Route>
   )
