@@ -24,5 +24,3 @@ Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's
 8. Setup a [TomTom](https://developer.tomtom.com) account
 9. Provide Userfront, and TomTom API keys as environment variables
 10. Run the dev server ```npm start```
-
-Congrats, you now have a working copy!
