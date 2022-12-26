@@ -1,7 +1,7 @@
 ## Homebound 🚙
 #### A rideshare service that connects travellers with passengers who'd like to tag along and share trip costs.
 
-Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's](https://mlh.io) Hackcoming 2 Hackathon. (That's a lot of *hack*)
+Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's](https://mlh.io) Hackcoming 2 Hackathon.
 
 ### Stack
 - React
@@ -26,9 +26,3 @@ Homebound was ~~built~~ hacked together in a weekend for [Major League Hacking's
 10. Run the dev server ```npm start```
 
 Congrats, you now have a working copy!
-
-
-### Helpful Resources
-This [React Authentication Tutorial](https://css-tricks.com/react-authentication-access-control/) by CSS-Tricks. (Note: this tutorial uses React Router 5. Homebound uses 6)
-
-📻 [Tokyo Rain](https://open.spotify.com/track/7kutPF54tDrhROVwm5r0C2?si=72afbef9da7f4028) by Marcus Warner
